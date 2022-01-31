@@ -1,0 +1,47 @@
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+}
+
+@include keyframes(slide-down) {
+  0% {
+    transform: scale3d(1) rotate(0deg);
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate(180deg);
+  }
+  100% {
+    transform: scale3d(1) rotate(360deg);
+  }
+}
+
+.LoadingComponent {
+  border: 10px solid transparent;
+  background:linear-gradient(45deg,rgba(138,198,209,1),rgba(138,198,209,0.2)) border-box; 
+  -webkit-mask:
+     linear-gradient(#fff 0 0) padding-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  @include animation('slide-down 1.5s linear infinite');
+}
