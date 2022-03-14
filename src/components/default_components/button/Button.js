@@ -9,7 +9,7 @@ const StyledButton = styled.div`
   padding: 10px;
   margin: 10px 0;
   background: rgba(138, 198, 209, 1);
-  border-radius: 10px;
+  border-radius: 6px;
   color: white;
   font-weight: 500;
   border: 1px solid rgba(138,198,209,1);
@@ -20,8 +20,8 @@ const StyledButton = styled.div`
   }
 `;
 
-const Button = (props) => {
-  return <StyledButton onClick={props.onClick}>{props.text}</StyledButton>;
+const Button = ({onClick, text, className}) => {
+  return <StyledButton className={className} onClick={onClick}>{text}</StyledButton>;
 };
 
 export default Button;

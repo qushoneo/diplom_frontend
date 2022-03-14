@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, getProfile } from '../account/authSlice.js';
 
 const StyledHeader = styled.div`
   margin: 0 auto;
-  background: rgba(138,198,209,0.2);
+  background: rgba(138, 198, 209, 0.2);
   height: 3rem;
   display: flex;
   justify-content: space-around;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   text-decoration: none;
   display: flex;
   justify-content: center;
@@ -24,11 +27,33 @@ const StyledLink = styled.a`
 `;
 
 const Header = () => {
+  const dispatch = useDispatch();
+  let isAuth = useSelector((state) => state.auth.isAuth);
+  let user = useSelector((state) => state.auth.user);
+  const [currentUser, setCurrentUser] = useState(user);
+
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(getProfile());
+    }
+  }, []);
+
   return (
     <StyledHeader>
-      <StyledLink href={'/list'}>LIST</StyledLink>
-      <StyledLink href={'/edit'}>EDIT</StyledLink>
-      <StyledLink href={'/settings'}>SETTINGS</StyledLink>
+      {isAuth ? (
+        <>
+          <StyledLink to={'/list'}>LIST</StyledLink>
+          <StyledLink to={'/edit'}>EDIT</StyledLink>
+          <StyledLink
+            to={'./account'}
+          >{`Hi, ${user.username?.toUpperCase()}`}</StyledLink>
+          <StyledLink onClick={() => dispatch(logout())} to={'/login'}>
+            LOGOUT
+          </StyledLink>
+        </>
+      ) : (
+        <StyledLink to={'/login'}>LOGIN</StyledLink>
+      )}
     </StyledHeader>
   );
 };

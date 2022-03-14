@@ -14,9 +14,7 @@ const Edit = () => {
   useEffect(() => {
     Api.Employees.getAllEmployees().then((response) => {
       setData(response.data || []);
-      setTimeout(() => {
-        setLoading(false)
-      }, 5000);
+      setLoading(false);
     });
   }, []);
 

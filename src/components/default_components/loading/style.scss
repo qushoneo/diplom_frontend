@@ -22,13 +22,10 @@
 
 @include keyframes(slide-down) {
   0% {
-    transform: scale3d(1) rotate(0deg);
-  }
-  50% {
-    transform: scale3d(1.1, 1.1, 1.1) rotate(180deg);
+    transform: rotate(0deg);
   }
   100% {
-    transform: scale3d(1) rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -43,5 +40,5 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  @include animation('slide-down 1.5s linear infinite');
+  @include animation('slide-down 1s linear infinite');
 }
